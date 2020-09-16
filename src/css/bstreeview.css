@@ -6,6 +6,7 @@
  Copyright 2020
  License: Apache License 2.0
  Project: https://github.com/chniter/bstreeview
+调整了下样式，取消了边框
 */
 .bstreeview {
     position: relative;
@@ -17,8 +18,8 @@
     word-wrap: break-word;
     background-color: #fff;
     background-clip: border-box;
-    border: 1px solid rgba(0,0,0,.125);
-    border-radius: .25rem;
+    border: 0px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
 
     padding: 0;
     overflow: hidden;
@@ -30,9 +31,9 @@
 
 .bstreeview .list-group-item {
     border-radius: 0;
-    border-width: 1px 0 0 0;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    border-width: 0 0 0 0;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
     cursor: pointer;
 }
 
