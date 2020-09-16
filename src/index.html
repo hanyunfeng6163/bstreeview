@@ -23,8 +23,7 @@
 			</div>
 		</div>
 	</div>
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
-			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
 			integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 			crossorigin="anonymous"></script>
@@ -34,63 +33,91 @@
 	<script>
 		$(function () {
 
-			var json = [
-				{
-					text: "Inbox",
-					icon: "fa fa-inbox fa-fw",
-					nodes: [
-						{
-							text: "Office",
-							icon: "fa fa-inbox fa-fw",
-							nodes: [
-								{
-									icon: "fa fa-inbox fa-fw",
-									text: "Customers"
-								},
-								{
-									icon: "fa fa-inbox fa-fw",
-									text: "Co-Workers"
-								}
-							]
-						},
-						{
-							icon: "fa fa-inbox fa-fw",
-							text: "Others"
-						}
-					]
-				},
-				{
-					icon: "fa fa-archive fa-fw",
-					text: "Drafts"
-				},
-				{
-					icon: "fa fa-calendar fa-fw",
-					text: "Calendar"
-				},
-				{
-					icon: "fa fa-address-book fa-fw",
-					text: "Contacts"
-				},
-				{
-					icon: "fa fa-trash fa-fw",
-					text: "Deleted Items"
-				},
+
+            var json = [
                 {
-                    icon: "fa fa-globe fa-fw",
-					text: "Go to Google",
+                    text: "Inbox",
+                    icon: "fa fa-folder-o",
+                    nodes: [
+                        {
+                            text: "Office",
+                            icon: "fa fa-folder-o",
+                            nodes: [
+                                {
+                                    icon: "fa fa-folder-o",
+                                    text: "Customers"
+                                },
+                                {
+                                    icon: "fa fa-folder-o",
+                                    text: "Co-Workers",
+                                }
+                            ]
+                        },
+                        {
+                            icon: "fa fa-folder-o",
+                            text: "Others"
+                        }
+                    ]
+                },
+                {
+                    icon: "fa fa-folder-o",
+                    text: "Drafts",
+                    href: "https://google.com",
+                    show: true,
+                    nodes: [
+                        {
+                            text: "Office",
+                            icon: "fa fa-folder-o",
+                            show: true,
+                            nodes: [
+                                {
+                                    icon: "fa fa-folder-o",
+                                    text: "Customers"
+                                },
+                                {
+                                    icon: "fa fa-folder-o",
+                                    text: "Co-Workers",
+                                    class: "active",
+
+                                }
+                            ]
+                        },
+                        {
+                            icon: "fa fa-folder-o",
+                            text: "Others"
+                        }
+                    ]
+                },
+                {
+                    icon: "fa fa-folder-o",
+                    text: "Calendar"
+                },
+                {
+                    icon: "fa fa-folder-o",
+                    text: "Contacts"
+                },
+                {
+                    icon: "fa fa-folder-o",
+                    text: "Deleted Items"
+                },
+                {
+                    icon: "fa fa-folder-o",
+                    text: "Go to Google",
                     class: "text-info",
                     href: "https://google.com"
                 }
-			];
+            ];
 
-			$('#tree').bstreeview({
-				data: json,
+            $('#tree').bstreeview({
+                data: json,
                 expandIcon: 'fa fa-angle-down fa-fw',
                 collapseIcon: 'fa fa-angle-right fa-fw',
-                indent: 1.25,
-                parentsMarginLeft: '1.25rem',
+                indent: 2.0,
+                parentsMarginLeft: '1.5rem',
                 openNodeLinkOnNewTab: true
-			});
+            });
+
+
 		});
 	</script>
 </body>
