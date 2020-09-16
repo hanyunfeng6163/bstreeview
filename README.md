@@ -1,5 +1,5 @@
 # Bootstrap 4 Tree View
-
+> 在原有基础上，增加了默认展开，箭头跟随active等
 ---
 
 [![npm version](https://img.shields.io/npm/v/bstreeview.svg?style=flat)](https://www.npmjs.com/package/bstreeview)
