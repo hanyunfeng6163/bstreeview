@@ -6,6 +6,7 @@
  * License: Apache License 2.0
  *
  * Project: https://github.com/chniter/bstreeview
+ * 增加了默认展开和只能单击箭头展开的功能
  */
 ; (function ($, window, document, undefined) {
     "use strict";
@@ -26,9 +27,10 @@
      */
     var templates = {
         treeview: '<div class="bstreeview"></div>',
-        treeviewItem: '<div role="treeitem" class="list-group-item" data-toggle="collapse"></div>',
+        treeviewItem: '<div role="treeitem" class="list-group-item"></div>',
+        treeviewGroupItemShow: '<div role="group" class="list-group collapse show" id="itemid"></div>',
         treeviewGroupItem: '<div role="group" class="list-group collapse" id="itemid"></div>',
-        treeviewItemStateIcon: '<i class="state-icon"></i>',
+        treeviewItemStateIcon: '<i class="state-icon"  data-toggle="collapse"></i>',
         treeviewItemIcon: '<i class="item-icon"></i>'
     };
     /**
@@ -67,20 +69,20 @@
             var _this = this;
             this.build($(this.element), this.tree, 0);
             // Update angle icon on collapse
-            $(this.element).on('click', '.list-group-item', function (e) {
-                $('.state-icon', this)
-                    .toggleClass(_this.settings.expandIcon)
-                    .toggleClass(_this.settings.collapseIcon);
+
+            $(this.element).on('click', '.list-group-item .state-icon', function (e) {
+                $(this).toggleClass(_this.settings.expandIcon).toggleClass(_this.settings.collapseIcon);
                 // navigate to href if present
-                if (e.target.hasAttribute('href')) {
-                    if (_this.settings.openNodeLinkOnNewTab) {
-                        window.open(e.target.getAttribute('href'), '_blank');
-                    }
-                    else {
-                        window.location = e.target.getAttribute('href');
-                    }
-                }
+                // if (e.target.hasAttribute('href')) {
+                //     if (_this.settings.openNodeLinkOnNewTab) {
+                //         window.open(e.target.getAttribute('href'), '_blank');
+                //     }
+                //     else {
+                //         window.location = e.target.getAttribute('href');
+                //     }
+                // }
             });
+
         },
         /**
          * Initialize treeview Data.
@@ -120,13 +122,21 @@
             $.each(nodes, function addNodes(id, node) {
                 // Main node element.
                 var treeItem = $(templates.treeviewItem)
-                    .attr('data-target', "#" + _this.itemIdPrefix + node.nodeId)
                     .attr('style', 'padding-left:' + leftPadding)
                     .attr('aria-level', depth);
                 // Set Expand and Collapse icones.
                 if (node.nodes) {
-                    var treeItemStateIcon = $(templates.treeviewItemStateIcon)
+                    // 展开时候左侧箭头默认向下
+                    let treeItemStateIcon;
+                    if (node.show === true){
+                        treeItemStateIcon = $(templates.treeviewItemStateIcon)
+                        .attr('data-target', "#" + _this.itemIdPrefix + node.nodeId)
+                        .addClass(_this.settings.expandIcon);
+                    }else{
+                        treeItemStateIcon = $(templates.treeviewItemStateIcon)
+                        .attr('data-target', "#" + _this.itemIdPrefix + node.nodeId)
                         .addClass(_this.settings.collapseIcon);
+                    }
                     treeItem.append(treeItemStateIcon);
                 }
                 // set node icon if exist.
@@ -153,9 +163,16 @@
                 parentElement.append(treeItem);
                 // Build child nodes.
                 if (node.nodes) {
-                    // Node group item.
-                    var treeGroup = $(templates.treeviewGroupItem)
-                        .attr('id', _this.itemIdPrefix + node.nodeId);
+                    let treeGroup;
+                    if (node.show === true){
+                        // Node group item.
+                        treeGroup = $(templates.treeviewGroupItemShow)
+                            .attr('id', _this.itemIdPrefix + node.nodeId);
+                    }else{
+                        // Node group item.
+                        treeGroup = $(templates.treeviewGroupItem)
+                            .attr('id', _this.itemIdPrefix + node.nodeId);
+                    }
                     parentElement.append(treeGroup);
                     _this.build(treeGroup, node.nodes, depth);
                 }
